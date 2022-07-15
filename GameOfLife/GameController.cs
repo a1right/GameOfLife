@@ -19,7 +19,7 @@ namespace GameOfLife
         {
             while (true)
             {
-                //Thread.Sleep(10);
+                //Thread.Sleep(30);
                 Generation++;
                 UpdateGeneration(this, new GenerationEventArgs(Generation));
                 Console.SetCursorPosition(100, 0);

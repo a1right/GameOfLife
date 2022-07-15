@@ -9,6 +9,6 @@ namespace GameOfLife
     public enum CellStateSymbols
     {
         CellIsDead = ' ',
-        CellIsAlive  = '0',
+        CellIsAlive  = 'o',
     }
 }

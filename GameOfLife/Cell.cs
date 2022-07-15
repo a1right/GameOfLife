@@ -12,6 +12,7 @@ namespace GameOfLife
         public int Row { get; private set; }
         public int Column { get; private set; }
         public bool IsAlive { get; private set; }
+        public bool IsAliveInNewGeneration { get; private set; }
 
         private List<Cell> _neighbours;
         public Cell(int column, int row, Cell[,] field, bool isAlive = true)
@@ -31,24 +32,37 @@ namespace GameOfLife
             if (generation < 2)
                 SetNeighbours();
             SetCellStateInNextGeneration();
+            SetCellStateAndPrint();
+        }
+
+        private void SetCellStateAndPrint()
+        {
+            if (IsAlive && !IsAliveInNewGeneration)
+            {
+                IsAlive = false;
+                PrintCell();
+            }
+
+            if (!IsAlive && IsAliveInNewGeneration)
+            {
+                IsAlive = true;
+                PrintCell();
+            }
         }
         private void SetCellStateInNextGeneration()
         {
             int aliveNeighboursCount = _neighbours.Where(x => x.IsAlive == true).Count();
-            int deadNeighboursCount = _neighbours.Where(x => x.IsAlive == false).Count();
             if (IsAlive)
             {
                 if (aliveNeighboursCount < 2 || aliveNeighboursCount > 3 )
                 {
-                    IsAlive = false;
-                    PrintCell();
+                    IsAliveInNewGeneration = false;
                     return;
                 }
             }
            if( aliveNeighboursCount == 3)
             {
-                IsAlive=true;
-                PrintCell();
+                IsAliveInNewGeneration=true;
                 return;
             }
         }
