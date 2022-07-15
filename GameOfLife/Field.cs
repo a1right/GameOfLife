@@ -41,6 +41,7 @@ namespace GameOfLife
                     {
                         GameField[column, row] = new Cell(column, row, GameField);
                     }
+
                     GameController.UpdateGeneration += GameField[column, row].cell_UpdateGeneration;
                 }
             }

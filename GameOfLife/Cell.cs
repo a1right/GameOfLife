@@ -21,6 +21,7 @@ namespace GameOfLife
             Row = row;
             IsAlive = isAlive;
             _field = field;
+            IsAliveInNewGeneration = IsAlive;
         }
 
         public void cell_UpdateGeneration(object sender, GenerationEventArgs e)
@@ -37,16 +38,16 @@ namespace GameOfLife
 
         private void SetCellStateAndPrint()
         {
-            if (IsAlive && !IsAliveInNewGeneration)
+            if (!IsAliveInNewGeneration)
             {
-                IsAlive = false;
                 PrintCell();
+                IsAlive = false;
             }
 
-            if (!IsAlive && IsAliveInNewGeneration)
+            if (IsAliveInNewGeneration)
             {
-                IsAlive = true;
                 PrintCell();
+                IsAlive = true;
             }
         }
         private void SetCellStateInNextGeneration()
@@ -62,7 +63,7 @@ namespace GameOfLife
             }
            if( aliveNeighboursCount == 3)
             {
-                IsAliveInNewGeneration=true;
+                IsAliveInNewGeneration = true;
                 return;
             }
         }
@@ -119,9 +120,9 @@ namespace GameOfLife
             Console.Write(currentState);
         }
 
-        private void CellDyingAnimation()
-        {
+        //private void CellDyingAnimation()
+        //{
 
-        }
+        //}
     }
 }

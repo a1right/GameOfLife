@@ -19,9 +19,9 @@ namespace GameOfLife
         {
             while (true)
             {
-                //Thread.Sleep(30);
-                Generation++;
                 UpdateGeneration(this, new GenerationEventArgs(Generation));
+                //Thread.Sleep(300);
+                Generation++;
                 Console.SetCursorPosition(100, 0);
                 Console.Write($"Текущее поколение: {Generation}");
             }
