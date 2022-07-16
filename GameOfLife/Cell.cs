@@ -108,15 +108,15 @@ namespace GameOfLife
 
         private bool IsCellInBounds(int column, int row)
         {
-            if (column >= 0 && column < _field.GetLength(1) && row >= 0 && row < _field.GetLength(0))
+            if (column >= 0 && column < _field.GetLength(0) && row >= 0 && row < _field.GetLength(1))
                 return true;
             return false;
         }
 
         private void PrintCell()
         {
-            char currentState =  IsAlive ? (char)CellStateSymbols.CellIsAlive : (char)CellStateSymbols.CellIsDead;
-            Console.SetCursorPosition(Row * 2, Column);
+            char currentState =  IsAliveInNewGeneration ? (char)CellStateSymbols.CellIsAlive : (char)CellStateSymbols.CellIsDead;
+            Console.SetCursorPosition(Row, Column);
             Console.Write(currentState);
         }
 

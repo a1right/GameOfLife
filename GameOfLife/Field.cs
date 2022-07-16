@@ -30,16 +30,18 @@ namespace GameOfLife
         
         private void CreateGameField()
         {
-            GameField = new Cell[Size, Size];
-            for (int column = 0; column < Size; column++)
+            var random = new Random();
+            GameField = new Cell[Height, Width];
+            for (int column = 0; column < Height; column++)
             {
-                for (int row = 0; row < Size; row++)
+                for (int row = 0; row < Width; row++)
                 {
-                    if (row % 2 == 0)
-                        GameField[column, row] = new Cell(column, row, GameField, false);
+                    
+                    if (random.Next(0,11) == 1)
+                        GameField[column, row] = new Cell(column, row, GameField);
                     else
                     {
-                        GameField[column, row] = new Cell(column, row, GameField);
+                        GameField[column, row] = new Cell(column, row, GameField, false);
                     }
 
                     GameController.UpdateGeneration += GameField[column, row].cell_UpdateGeneration;
