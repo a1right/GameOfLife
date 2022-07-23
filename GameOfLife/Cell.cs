@@ -30,24 +30,21 @@ namespace GameOfLife
         }
         public void DoLifeCycle(int generation)
         {
-            if (generation < 2)
+            if (generation < 1)
                 SetNeighbours();
-            SetCellStateInNextGeneration();
             SetCellStateAndPrint();
+        }
+        public void cell_UpdateCellState(object? sender, EventArgs e)
+        {
+            SetCellStateInNextGeneration();
         }
 
         private void SetCellStateAndPrint()
         {
-            if (!IsAliveInNewGeneration)
+            if (IsAliveInNewGeneration != IsAlive)
             {
                 PrintCell();
-                IsAlive = false;
-            }
-
-            if (IsAliveInNewGeneration)
-            {
-                PrintCell();
-                IsAlive = true;
+                IsAlive = IsAliveInNewGeneration;
             }
         }
         private void SetCellStateInNextGeneration()
@@ -61,7 +58,7 @@ namespace GameOfLife
                     return;
                 }
             }
-           if( aliveNeighboursCount == 3)
+           if(!IsAlive && aliveNeighboursCount == 3)
             {
                 IsAliveInNewGeneration = true;
                 return;
@@ -75,35 +72,24 @@ namespace GameOfLife
 
         private IEnumerable<Cell> GetNeighboursInBounds()
         {
-            if (IsCellInBounds(Column + 1, Row))
-                yield return _field[Column + 1, Row];
-            if (IsCellInBounds(Column + 1, Row + 1))
-                yield return _field[Column + 1, Row + 1];
-            if (IsCellInBounds(Column, Row + 1))
-                yield return _field[Column, Row + 1];
-            if (IsCellInBounds(Column - 1, Row + 1))
-                yield return _field[Column - 1, Row + 1];
-            if (IsCellInBounds(Column - 1, Row))
-                yield return _field[Column - 1, Row];
-            if (IsCellInBounds(Column - 1, Row - 1))
-                yield return _field[Column - 1, Row - 1];
-            if (IsCellInBounds(Column, Row - 1))
-                yield return _field[Column, Row - 1];
-            if (IsCellInBounds(Column + 1, Row - 1))
-                yield return _field[Column + 1, Row - 1];
+            int fieldWidth = _field.GetLength(1);
+            int fieldHeight = _field.GetLength(0);
+            yield return IsCellInBounds(Column + 1, Row) ? _field[Column + 1, Row] : _field[0, Row];
+                
+            yield return IsCellInBounds(Column + 1, Row + 1) ? _field[Column + 1, Row + 1] : _field[0, 0];
 
-            //for (int columnDiff = -1; columnDiff <= 1; columnDiff++)
-            //{
-            //    for (int rowDiff = -1; rowDiff <= 1; rowDiff++)
-            //    {
-            //        if (columnDiff == rowDiff)
-            //            continue;
-            //        if (IsCellInBounds(Column + columnDiff, Row + rowDiff))
-            //        {
-            //            yield return _field[Column + columnDiff, Row + rowDiff];
-            //        }
-            //    }
-            //}
+            yield return IsCellInBounds(Column, Row + 1) ? _field[Column, Row + 1] : _field[Column, 0];
+                
+            yield return IsCellInBounds(Column - 1, Row + 1) ? _field[Column - 1, Row + 1] : _field[_field.GetLength(0) - 1, 0];
+
+            yield return IsCellInBounds(Column - 1, Row) ? _field[Column - 1, Row] : _field[_field.GetLength(0) - 1, Row];
+
+            yield return IsCellInBounds(Column - 1, Row - 1) ? _field[Column - 1, Row - 1] : _field[_field.GetLength(0) - 1, _field.GetLength(1) - 1];
+                
+            yield return IsCellInBounds(Column, Row - 1) ? _field[Column, Row - 1] : _field[Column, _field.GetLength(1) - 1];
+
+            yield return IsCellInBounds(Column + 1, Row - 1) ? _field[Column + 1, Row - 1] : _field[0, _field.GetLength(1) - 1];
+                
         }
 
         private bool IsCellInBounds(int column, int row)
@@ -119,10 +105,5 @@ namespace GameOfLife
             Console.SetCursorPosition(Row, Column);
             Console.Write(currentState);
         }
-
-        //private void CellDyingAnimation()
-        //{
-
-        //}
     }
 }

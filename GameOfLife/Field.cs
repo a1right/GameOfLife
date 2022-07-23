@@ -24,7 +24,7 @@ namespace GameOfLife
             Console.WriteLine("Введите размер поля");
             Size = int.Parse(Console.ReadLine());
             Height = Size;
-            Width = Size * 2;
+            Width = Size * 3;
             Console.Clear();
         }
         
@@ -43,7 +43,7 @@ namespace GameOfLife
                     {
                         GameField[column, row] = new Cell(column, row, GameField, false);
                     }
-
+                    GameController.UpdateCellState += GameField[column, row].cell_UpdateCellState;
                     GameController.UpdateGeneration += GameField[column, row].cell_UpdateGeneration;
                 }
             }
