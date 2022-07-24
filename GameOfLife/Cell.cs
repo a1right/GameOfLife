@@ -72,9 +72,9 @@ namespace GameOfLife
 
         private IEnumerable<Cell> GetNeighboursInBounds()
         {
-            int lastColumn = _field.GetLength(1) - 1;
+            int lastRow = _field.GetLength(1) - 1;
             int firstColumn = 0;
-            int lastRow = _field.GetLength(0) - 1;
+            int lastColumn = _field.GetLength(0) - 1;
             int firstRow = 0;
 
             yield return IsCellInBounds(Column + 1, Row) ? _field[Column + 1, Row] : _field[firstColumn, Row];
