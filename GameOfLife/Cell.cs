@@ -24,32 +24,29 @@ namespace GameOfLife
             IsAliveInNewGeneration = IsAlive;
         }
 
-        public void cell_UpdateGeneration(object sender, GenerationEventArgs e)
+        public void UpdateForNextGeneration()
         {
-            DoLifeCycle(e.Generation);
-        }
-        public void DoLifeCycle(int generation)
-        {
-            if (generation < 1)
+            if (_neighbours == null)
                 SetNeighbours();
-            SetCellStateAndPrint();
-        }
-        public void cell_UpdateCellState(object? sender, EventArgs e)
-        {
+                
             SetCellStateInNextGeneration();
+        }
+        
+        public void ApplyNextState()
+        {
+            SetCellStateAndPrint();
         }
 
         private void SetCellStateAndPrint()
         {
             if (IsAliveInNewGeneration != IsAlive)
             {
-                PrintCell();
                 IsAlive = IsAliveInNewGeneration;
             }
         }
         private void SetCellStateInNextGeneration()
         {
-            int aliveNeighboursCount = _neighbours.Where(x => x.IsAlive == true).Count();
+            int aliveNeighboursCount = _neighbours.Count(x => x.IsAlive);
             if (IsAlive)
             {
                 if (aliveNeighboursCount < 2 || aliveNeighboursCount > 3 )
