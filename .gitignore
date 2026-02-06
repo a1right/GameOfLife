@@ -1,15 +1,23 @@
 ```
 # Build artifacts
-*.obj
-*.exe
-*.dll
-*.pdb
-*.userprefs
+*.slnx
+*.sln
+obj/
+bin/
+out/
+dist/
+build/
+target/
 
 # Dependencies
 packages/
-bin/
-obj/
+node_modules/
+lib/
+
+# Test coverage
+coverage/
+*.coverage
+.coverage*
 
 # Logs
 *.log
@@ -19,13 +27,17 @@ obj/
 .env.local
 *.env.*
 
-# Editors
+# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS generated files
+*~
 .DS_Store
 Thumbs.db
+
+# OS generated
+.DS_Store
+*.tmp
+temp/
 ```
